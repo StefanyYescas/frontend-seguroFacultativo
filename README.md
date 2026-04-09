@@ -21,7 +21,8 @@ cd tu-proyecto
 
 ### Instalar dependencias:
 Con npm:
-npm install
+npm install 
+
 Con Yarn:
 yarn
 
@@ -29,6 +30,7 @@ yarn
 
 Con npm:
 npm run dev
+
 Con Yarn:
 yarn dev
 
@@ -40,6 +42,7 @@ http://localhost:5173
 
 Con npm:
 npm run build
+
 Con Yarn:
 yarn build
 
