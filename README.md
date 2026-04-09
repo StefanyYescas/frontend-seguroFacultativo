@@ -1,6 +1,50 @@
-# React + Vite
+# Proyecto React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto está creado con **React** usando **Vite**. A continuación se explican los pasos para ejecutarlo localmente.
+
+---
+
+## Requisitos
+
+- [Node.js](https://nodejs.org/) (v16 o superior)
+- npm (viene con Node.js) o [Yarn](https://yarnpkg.com/)
+
+---
+
+## Instalación
+
+Clonar el repositorio:
+git clone 
+
+Entrar en la carpeta del proyecto:
+cd tu-proyecto
+
+Instalar dependencias:
+Con npm:
+npm install
+Con Yarn:
+yarn
+
+Ejecución en modo desarrollo
+
+Con npm:
+npm run dev
+
+Con Yarn:
+yarn dev
+
+Esto iniciará un servidor de desarrollo y normalmente abrirá la app en http://localhost:5173
+
+
+Construcción para producción
+
+Con npm:
+npm run build
+
+Con Yarn:
+yarn build
+
+
 
 Currently, two official plugins are available:
 
