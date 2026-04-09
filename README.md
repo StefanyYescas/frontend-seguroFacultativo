@@ -13,34 +13,33 @@ Este proyecto está creado con **React** usando **Vite**. A continuación se exp
 
 ## Instalación
 
-Clonar el repositorio:
+### Clonar el repositorio:
 git clone 
 
-Entrar en la carpeta del proyecto:
+#### Entrar en la carpeta del proyecto:
 cd tu-proyecto
 
-Instalar dependencias:
+### Instalar dependencias:
 Con npm:
 npm install
 Con Yarn:
 yarn
 
-Ejecución en modo desarrollo
+### Ejecución en modo desarrollo
 
 Con npm:
 npm run dev
-
 Con Yarn:
 yarn dev
 
-Esto iniciará un servidor de desarrollo y normalmente abrirá la app en http://localhost:5173
+### Esto iniciará un servidor de desarrollo y normalmente abrirá la app en:
+http://localhost:5173
 
 
-Construcción para producción
+### Construcción para producción
 
 Con npm:
 npm run build
-
 Con Yarn:
 yarn build
 
