@@ -1,8 +1,269 @@
+/* ===== ESTRUCTURA GENERAL ===== */
 .login {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  background-color: #fff;
-  background-position: top center; 
-  background-size: 100% 80%;
+  overflow: hidden;
+}
+
+/* ===== HEADER ===== */
+.login__header {
+  background: #005487;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__titulo {
+  color: #ffee00;
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* ===== HERO ===== */
+.login__hero {
+  position: relative;
+
+  height: calc(100vh - 192px);
+
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+
+  padding: 50px 60px 0 60px;
+
+  overflow: hidden;
+}
+
+/* ===== TODO EL CONTENIDO ENCIMA DEL BLUR ===== */
+.login__hero>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== LOGO ITV ===== */
+.login__logo-wrapper {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-45%, -50%);
+}
+
+.login__logo {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+}
+
+/* ===== CARD ===== */
+.login__card {
+  width: 300px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid #c9c9c9;
+  border-radius: 3px;
+
+  overflow: hidden;
+
+  margin-top: 90px;
+
+  padding-bottom: 28px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.28);
+}
+
+/* ===== TABS ===== */
+.login__tabs {
+  display: flex;
+}
+
+.login__tab {
+  flex: 1;
+
+  padding: 14px 0;
+
+  border: none;
+
+  background: #00853f;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Times New Roman', Times, serif;
+
+  cursor: pointer;
+
+  transition: background 0.2s;
+}
+
+.login__tab--activa {
+  background: #006a34;
+}
+
+.login__tab:hover {
+  background: #00753a;
+}
+
+/* ===== TEXTO ACCESO ===== */
+.login__acceso {
+  padding: 22px 20px 16px 20px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
+
+  color: #0f2147;
+
+  text-align: left;
+}
+
+/* ===== FORM ===== */
+.login__form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+
+  padding: 0 20px;
+}
+
+/* ===== INPUTS ===== */
+.login__input {
+  padding: 14px;
+
+  border: 1px solid #bcbcbc;
+  border-radius: 2px;
+
+  font-size: 1rem;
+  color: #1a1a1a;
+
+  outline: none;
+
+  background: white;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.login__input:focus {
+  border-color: #00853f;
+
+  box-shadow:
+    0 0 0 2px rgba(0, 133, 63, 0.15);
+}
+
+/* ===== ERROR ===== */
+.login__error {
+  background: #fdecea;
+
+  color: #c0392b;
+
+  border: 1px solid #f5c0bb;
+  border-radius: 4px;
+
+  padding: 10px 12px;
+
+  font-size: 0.85rem;
+}
+
+/* ===== BOTÓN ===== */
+.login__boton {
+  margin-top: 6px;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: 3px;
+
+  background: #1e67b2;
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+.login__boton:hover {
+  background: #15579a;
+
+  transform: translateY(-1px);
+}
+
+.login__boton:active {
+  transform: translateY(0);
+}
+
+/* ===== FOOTER ===== */
+.login__footer {
+  height: 120px;
+
+  background: #f3f3f3;
+
+  display: flex;
+  align-items: center;
+
+  gap: 40px;
+
+  padding-left: 30px;
+
+  border-top: 1px solid #cfcfcf;
+}
+
+/* ===== LOGOS FOOTER ===== */
+.login__footer-logo {
+  height: 70px;
+  object-fit: contain;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .login__hero {
+    justify-content: center;
+    padding: 30px 20px;
+  }
+
+  .login__logo-wrapper {
+    display: none;
+  }
+
+  .login__card {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .login__titulo {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .login__footer {
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .login__footer-logo {
+    height: 55px;
+  }
 }
