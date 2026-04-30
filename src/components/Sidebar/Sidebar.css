@@ -1,0 +1,30 @@
+/* ===== SIDEBAR IZQUIERDO ===== */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar__item {
+    padding: 8px 12px;
+    background: #1e4d8c;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #163d70;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sidebar__item--activo {
+    background: #163d70; /* slightly darker blue */
+}
+
+.sidebar__item:hover {
+    background: #2a5fa0;
+}

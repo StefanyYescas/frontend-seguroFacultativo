@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header/Header"
 import fondo from "../../assets/fondoitver.jpg"
 import logoITV from "../../assets/logo-itv.png"
@@ -10,6 +11,7 @@ function Login() {
   const [numControl, setNumControl] = useState("")
   const [nip, setNip] = useState("")
   const [error, setError] = useState("")
+  const navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -19,6 +21,14 @@ function Login() {
     }
     setError("")
     console.log("Login:", { numControl, nip, rol: tabActiva })
+    
+    // Save to localStorage as requested
+    localStorage.setItem("alumnoActual", JSON.stringify({
+      numControl: numControl,
+      nombre: "nombre del alumno"
+    }))
+
+    navigate("/alumno/portal")
   }
 
   return (
