@@ -1,0 +1,130 @@
+.solicitud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 40px;
+    width: 100%;
+}
+
+.solicitud__titulo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a2a4a;
+    text-align: center;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.solicitud__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* ===== INFO FIJA ===== */
+.solicitud__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.solicitud__info-fila {
+    display: flex;
+    align-items: center;
+}
+
+.solicitud__info-label {
+    background: #1e4d8c;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.solicitud__info-valor {
+    background: white;
+    border: 1px solid #ccc;
+    font-size: 0.75rem;
+    color: #333;
+    padding: 6px 12px;
+    flex: 1;
+}
+
+/* ===== CAMPOS ===== */
+.solicitud__campos {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 24px 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solicitud__campo {
+    display: flex;
+    align-items: center;
+}
+
+.solicitud__label {
+    background: #1e4d8c;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.solicitud__input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.solicitud__input:focus {
+    border-color: #1e4d8c;
+}
+
+.solicitud__file {
+    flex: 1;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    font-size: 0.8rem;
+    background: white;
+    cursor: pointer;
+}
+
+/* ===== BOTÓN ===== */
+.solicitud__boton {
+    padding: 9px 24px;
+    background: #1e6db5;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    align-self: center;
+}
+
+.solicitud__boton:hover {
+    background: #1557a0;
+    transform: translateY(-1px);
+}
+
+.solicitud__boton:active {
+    transform: translateY(0);
+}
