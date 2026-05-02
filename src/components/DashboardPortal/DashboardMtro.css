@@ -1,0 +1,41 @@
+.dashboard {
+  flex: 1;            /* 👈 ocupa todo el espacio restante */
+  height: 100vh;
+  background-color: #d9d9d9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTENIDO */
+.dashboard__content {
+  text-align: center;
+}
+
+/* TEXTOS */
+.dashboard__welcome {
+  color: #ff6600;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.dashboard__matricula {
+  color: #ff6600;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.dashboard__nombre {
+  color: #ff6600;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* IMAGEN */
+.dashboard__img {
+  width: 150px;
+  height: auto;
+}
