@@ -1,89 +1,207 @@
+/* =========================
+   SIDEBAR
+========================= */
+
 .admin {
-  width: 300px;
-  height: 100vh;
-  background-color: #2f5787;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 250px;
 
-  justify-content: flex-start;
-  padding: 20px 10px;
+    min-height: 100vh;
+
+    background: #004E7F;
+    ;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    padding: 1rem 0.8rem;
+
+    box-shadow:
+        2px 0 10px rgba(0, 0, 0, 0.08);
+
 }
+
+/* =========================
+   HEADER
+========================= */
 
 .admin__header {
-  text-align: center;
-  margin-bottom: 15px;
+
+    width: 100%;
+
+    text-align: center;
+
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
 }
 
-.admin__menu {
-  width: 85%;
-  max-width: 300px;
-
-  margin-top: 5px;
-  margin-bottom: auto;
-
-  border-top: 2px solid #cfcfcf;
-  border-bottom: 2px solid #cfcfcf;
-
-  padding: 15px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+/* =========================
+   LOGO
+========================= */
 
 .admin__logo {
-  width: 140px;
-  max-height: 100px;
-  object-fit: contain;
+
+    width: 90px;
+
+    object-fit: contain;
+
+    margin-bottom: 0.8rem;
+
 }
 
+/* =========================
+   TITULOS
+========================= */
+
 .admin__title {
-  color: yellow;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+
+    color: #F3EA00;
+
+     font-family: 'Times New Roman', Times, serif;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    margin-bottom: 0.7rem;
+
 }
 
 .admin__subtitle {
-  color: #dcdcdc;
-  font-size: 14px;
-  font-weight: bold;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 0.72rem;
+
+    line-height: 1.5;
+
+    font-weight: 500;
+
 }
+
+/* =========================
+   MENU
+========================= */
+
+.admin__menu {
+
+    width: 100%;
+
+    margin-top: 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.7rem;
+
+}
+
+/* =========================
+   BOTONES MENU
+========================= */
 
 .admin__menu button {
-  background-color: #d9d9d9;
-  border: none;
-  padding: 14px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #0077cc;
-  border-radius: 4px;
-  cursor: pointer;
+
+    width: 100%;
+
+    border: none;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    padding: 0.85rem;
+
+    border-radius: 4px;
+
+    font-size: 0.78rem;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
 }
+
+/* HOVER */
 
 .admin__menu button:hover {
-  background-color: #cfcfcf;
+
+    background: white;
+
+    color: #0f3d73;
+
 }
+
+/* =========================
+   LOGOUT
+========================= */
 
 .admin__logout {
-  background-color: #d9d9d9;
-  border: none;
-  padding: 10px 20px;
-  font-size: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 20px;
+
+    width: 100%;
+
+    margin-top: auto;
+
+    border: none;
+
+    background: #01426b;
+
+    color: white;
+
+    padding: 0.8rem;
+
+    border-radius: 3px;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
 }
+
+/* HOVER */
+
+.admin__logout:hover {
+
+    background: #023d78;
+
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
 .app-layout {
-  display: flex;
-  border: 3px ;
+
+    display: flex;
+
+    min-height: 100vh;
+
 }
+
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard {
-  border: 3px  ;
-}
 
-.admin {
-  border: 3px ;
+    flex: 1;
+
 }

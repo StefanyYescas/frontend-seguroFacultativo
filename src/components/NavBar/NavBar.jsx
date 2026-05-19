@@ -1,7 +1,8 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuthStore } from "../../store/authStore"
 import "./NavBar.css"
 
-// Opciones principales del menú
 const opciones = [
     "INFORMACIÓN ESCOLAR",
     "INSCRIPCIONES",
@@ -10,71 +11,85 @@ const opciones = [
     "CERRAR SESIÓN",
 ]
 
-// Submenú de Información Escolar
 const submenuInformacionEscolar = [
-    "Servicio Social",
-    "Residencias",
-    "Datos Socioeconómicos",
-    "Boleta de Calificaciones",
-    "Avance Reticular",
-    "Kardex de Calificaciones",
-    "Horario",
-    "Liberación de Idiomas",
-    "Calif. de Exámenes Globales o Especiales",
-    "Calificaciones Parciales",
-    "Quejas y Sugerencias",
-    "Comite Academico",
-    "Centro de Información",
-    "Egresados",
-    "Gestión del curso",
-    "Cambiar NIP",
-    "Cita para Ventanilla de Escolares",
-    "Cita para Trámites de Gestión Tecnológica y Vinculación",
-    "Biblioteca Digital",
     "Tramite Seguro Facultativo"
 ]
 
 function NavBar({ opcionActiva, onOpcionClick }) {
-    const [hoverIndex, setHoverIndex] = useState(null)
+
+    const [menuAbierto, setMenuAbierto] = useState(false)
+
+    const navigate = useNavigate()
+    const logout = useAuthStore((state) => state.logout)
+
+    const handleClick = (opcion) => {
+
+        if (opcion === "CERRAR SESIÓN") {
+            logout()
+            localStorage.removeItem("usuario")
+            navigate("/login", { replace: true })
+            return
+        }
+
+        if (opcion === "INFORMACIÓN ESCOLAR") {
+            setMenuAbierto(!menuAbierto)
+            return
+        }
+
+        onOpcionClick(opcion)
+        setMenuAbierto(false)
+    }
 
     return (
         <div className="navbar-wrapper">
+
             <nav className="navbar">
-                {opciones.map((opcion, index) => (
-                    <div 
-                        key={opcion} 
-                        className="navbar__item-container"
-                        onMouseEnter={() => setHoverIndex(index)}
-                        onMouseLeave={() => setHoverIndex(null)}
-                    >
+
+                {opciones.map((opcion) => (
+
+                    <div key={opcion} className="navbar__item-container">
+
                         <button
-                            className={`navbar__item ${opcionActiva === opcion ? "navbar__item--activo" : ""}`}
-                            onClick={() => onOpcionClick(opcion)}
+                            className={`navbar__item ${
+                                opcionActiva === opcion
+                                    ? "navbar__item--activo"
+                                    : ""
+                            }`}
+                            onClick={() => handleClick(opcion)}
                         >
                             {opcion}
                         </button>
-                        
-                        {/* Dropdown menu para INFORMACIÓN ESCOLAR */}
-                        {opcion === "INFORMACIÓN ESCOLAR" && hoverIndex === index && (
+
+                        {/* SUBMENU FIJO */}
+                        {opcion === "INFORMACIÓN ESCOLAR" && menuAbierto && (
+
                             <ul className="navbar__dropdown">
-                                {submenuInformacionEscolar.map((subOpcion) => (
-                                    <li 
-                                        key={subOpcion} 
+
+                                {submenuInformacionEscolar.map((sub) => (
+
+                                    <li
+                                        key={sub}
                                         className="navbar__dropdown-item"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            onOpcionClick(subOpcion);
-                                            setHoverIndex(null);
+                                        onClick={() => {
+                                            onOpcionClick(sub)
+                                            setMenuAbierto(false)
                                         }}
                                     >
-                                        {subOpcion}
+                                        {sub}
                                     </li>
+
                                 ))}
+
                             </ul>
+
                         )}
+
                     </div>
+
                 ))}
+
             </nav>
+
         </div>
     )
 }
