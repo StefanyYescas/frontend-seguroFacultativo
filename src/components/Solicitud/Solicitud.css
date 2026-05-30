@@ -24,7 +24,6 @@
     max-width: 600px;
 }
 
-/* ===== INFO FIJA ===== */
 .solicitud__info {
     width: 100%;
     display: flex;
@@ -56,7 +55,7 @@
     flex: 1;
 }
 
-/* ===== CAMPOS ===== */
+
 .solicitud__campos {
     background: white;
     border: 1px solid #ccc;
@@ -106,7 +105,6 @@
     cursor: pointer;
 }
 
-/* ===== BOTÓN ===== */
 .solicitud__boton {
     padding: 9px 24px;
     background: #1e6db5;

@@ -8,17 +8,14 @@ import { useAuthStore } from "../../store/authStore"
 
 function SidebarMtro() {
 
-  // NAVIGATE
+  
   const navigate = useNavigate()
-
-  // LOGOUT ZUSTAND
+ 
   const logout = useAuthStore(
     (state) => state.logout
   )
 
-  // =========================
-  // REDIRECCIONES
-  // =========================
+
 
   const irSolicitud = () => {
 
@@ -51,9 +48,7 @@ function SidebarMtro() {
 
   }
 
-  // =========================
-  // LOGOUT
-  // =========================
+  
   const cerrarSesion = () => {
 
     // LIMPIAR STORE

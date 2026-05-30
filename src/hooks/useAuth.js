@@ -15,10 +15,10 @@ export const loginUser = async (
       }
     )
 
-    // DATA
     const data = response.data
 
-    // SI HAY ERROR DEL BACKEND
+    // ERROR DEL BACKEND
+
     if (data.error) {
 
       return {
@@ -28,7 +28,17 @@ export const loginUser = async (
 
     }
 
+    // =========================
+    // GUARDAR TOKEN
+    // =========================
+
+    localStorage.setItem(
+      "token",
+      data.token
+    )
+
     // LOGIN CORRECTO
+
     return {
       success: true,
       data: data

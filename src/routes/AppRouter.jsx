@@ -20,7 +20,7 @@ function AppRouter() {
          } 
          />
 
-        {/* 🟢 PROTEGIDAS */}
+        {/* PROTEGIDAS */}
         <Route
           path="/alumno/portal"
           element={

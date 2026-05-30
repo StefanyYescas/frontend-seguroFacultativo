@@ -1,12 +1,12 @@
 .header {
   width: 100%;
-  background-color: #004E7F; /* azul */
+  background-color: #004E7F; 
   padding: 10px 0;
   text-align: center;
 }
 
 .header h1 {
-  color: #F3EA00; /* amarillo */
+  color: #F3EA00;
   font-size: 34px;
   margin: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;

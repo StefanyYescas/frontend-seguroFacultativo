@@ -19,7 +19,7 @@ function PortalAlumno() {
     const handleCerrarSesion = (opcion) => {
 
         if (opcion === "CERRAR SESIÓN") {
-            logout() // 🟢 limpia sesión global
+            logout() //  limpia sesión global
             window.location.href = "/login"
             return
         }

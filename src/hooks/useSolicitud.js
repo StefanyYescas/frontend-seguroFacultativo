@@ -1,8 +1,10 @@
 import api from "../utils/api"
 
+
 // =========================
 // OBTENER
 // =========================
+
 export const obtenerSolicitudes = async () => {
 
     try {
@@ -30,15 +32,25 @@ export const obtenerSolicitudes = async () => {
 }
 
 
+
 // =========================
 // ACTUALIZAR
 // =========================
-export const actualizarSolicitud = async (idSolicitud, datos) => {
+
+export const actualizarSolicitud = async (
+
+    idSolicitud,
+
+    datos
+
+) => {
 
     try {
 
         const response = await api.put(
+
             `/solicitud/${idSolicitud}`,
+
             datos
         )
 
@@ -61,12 +73,76 @@ export const actualizarSolicitud = async (idSolicitud, datos) => {
 }
 
 
+
+// =========================
+// PREVIEW PDF
+// SOLO GENERA PDF
+// =========================
+
+export const previewSeguro = async (
+
+    idSolicitud,
+
+    datos
+
+) => {
+
+    try {
+
+        const formData = new FormData()
+
+        formData.append(
+            "observacion",
+            datos.observacion
+        )
+
+        const response = await api.post(
+
+            `/solicitud/preview/${idSolicitud}`,
+
+            formData
+        )
+
+        if (response.data.error) {
+
+            return {
+                success: false,
+                error: response.data.error
+            }
+
+        }
+
+        return {
+            success: true,
+            data: response.data
+        }
+
+    } catch (error) {
+
+        console.log(error)
+
+        return {
+            success: false,
+            error: "Error al generar preview"
+        }
+
+    }
+
+}
+
+
+
 // =========================
 // ENTREGAR SEGURO
+// ENVIA CORREO Y APRUEBA
 // =========================
+
 export const entregarSeguro = async (
+
     idSolicitud,
+
     datos
+
 ) => {
 
     try {
@@ -79,15 +155,25 @@ export const entregarSeguro = async (
         )
 
         formData.append(
-            "archivo",
-            datos.archivo
+            "rutaSeguro",
+            datos.rutaSeguro
         )
 
         const response = await api.put(
+
             `/solicitud/entregar/${idSolicitud}`,
-            formData,
-            
+
+            formData
         )
+
+        if (response.data.error) {
+
+            return {
+                success: false,
+                error: response.data.error
+            }
+
+        }
 
         return {
             success: true,
@@ -108,9 +194,11 @@ export const entregarSeguro = async (
 }
 
 
+
 // =========================
 // APROBADAS
 // =========================
+
 export const obtenerAprobadas = async () => {
 
     try {
@@ -138,9 +226,11 @@ export const obtenerAprobadas = async () => {
 }
 
 
+
 // =========================
 // RECHAZADAS
 // =========================
+
 export const obtenerRechazadas = async () => {
 
     try {
@@ -168,9 +258,11 @@ export const obtenerRechazadas = async () => {
 }
 
 
+
 // =========================
 // HISTORIAL
 // =========================
+
 export const obtenerHistorial = async () => {
 
     try {

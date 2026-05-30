@@ -5,7 +5,8 @@ import "./Solicitudes.css"
 import {
     obtenerSolicitudes,
     actualizarSolicitud,
-    entregarSeguro
+    entregarSeguro,
+    previewSeguro
 } from "../../hooks/useSolicitud"
 
 import {
@@ -20,14 +21,12 @@ function Solicitudes() {
     } = useSolicitudStore()
 
     // =========================
-    // MODAL RECHAZO
+    // STATES
     // =========================
+
+    const [rutaSeguro, setRutaSeguro] = useState("")
 
     const [modal, setModal] = useState(false)
-
-    // =========================
-    // MODAL APROBACIÓN
-    // =========================
 
     const [modalAprobacion, setModalAprobacion] = useState(false)
 
@@ -35,7 +34,7 @@ function Solicitudes() {
 
     const [observacion, setObservacion] = useState("")
 
-    const [archivo, setArchivo] = useState(null)
+    const [cargando, setCargando] = useState(false)
 
     // =========================
     // CARGAR
@@ -74,7 +73,7 @@ function Solicitudes() {
     }
 
     // =========================
-    // ABRIR MODAL APROBACIÓN
+    // ABRIR MODAL APROBACION
     // =========================
 
     const abrirModalAprobacion = (solicitud) => {
@@ -82,10 +81,12 @@ function Solicitudes() {
         setSolicitudSeleccionada(solicitud)
 
         setModalAprobacion(true)
+
+        setRutaSeguro("")
     }
 
     // =========================
-    // CERRAR MODALES
+    // CERRAR
     // =========================
 
     const cerrarModal = () => {
@@ -96,7 +97,7 @@ function Solicitudes() {
 
         setObservacion("")
 
-        setArchivo(null)
+        setRutaSeguro("")
 
         setSolicitudSeleccionada(null)
     }
@@ -113,7 +114,7 @@ function Solicitudes() {
 
             estado: "rechazada",
 
-            observacion: observacion,
+            observacion,
 
             fechaEntrega:
                 new Date()
@@ -144,46 +145,88 @@ function Solicitudes() {
     }
 
     // =========================
-    // ENTREGAR SEGURO
+    // GENERAR PDF
     // =========================
 
- // =========================
-// ENTREGAR SEGURO (MEJORADO)
-// =========================
+    const generarPDF = async () => {
 
-const [cargando, setCargando] = useState(false)  // 👈 Agrega este estado
+        if (!solicitudSeleccionada) return
 
-const enviarAprobacion = async () => {
+        setCargando(true)
 
-    if (!solicitudSeleccionada) return
+        const datos = {
+            observacion
+        }
 
-    if (!archivo) {
-        alert("Debes adjuntar el PDF")
-        return
+        const response = await previewSeguro(
+
+            solicitudSeleccionada.idSolicitud,
+
+            datos
+        )
+
+        setCargando(false)
+
+        if (response.success) {
+
+            setRutaSeguro(response.data.rutaSeguro)
+
+            alert("PDF generado correctamente")
+
+        } else {
+
+            alert(response.error)
+
+        }
     }
 
-    setCargando(true)  // 👈 Mostrar carga
+    // =========================
+    // ENVIAR SEGURO
+    // =========================
 
-    const datos = {
-        observacion,
-        archivo
+    const aprobarSeguro = async () => {
+
+        if (!solicitudSeleccionada) return
+
+        if (!rutaSeguro) {
+
+            alert("Primero genera el PDF")
+
+            return
+        }
+
+        setCargando(true)
+
+        const datos = {
+
+            observacion,
+
+            rutaSeguro
+        }
+
+        const response = await entregarSeguro(
+
+            solicitudSeleccionada.idSolicitud,
+
+            datos
+        )
+
+        setCargando(false)
+
+        if (response.success) {
+
+            alert("Seguro enviado correctamente")
+
+            cerrarModal()
+
+            cargarSolicitudes()
+
+        } else {
+
+            alert(response.error)
+
+        }
     }
-
-    const response = await entregarSeguro(
-        solicitudSeleccionada.idSolicitud,
-        datos
-    )
-
-    setCargando(false)  // 👈 Ocultar carga
-
-    if (response.success) {
-        alert("Seguro entregado correctamente")
-        cerrarModal()
-        cargarSolicitudes()
-    } else {
-        alert(response.error)
-    }
-}
 
     return (
 
@@ -414,7 +457,7 @@ const enviarAprobacion = async () => {
             )}
 
             {/* =========================
-                MODAL APROBACIÓN
+                MODAL APROBACION
             ========================= */}
 
             {modalAprobacion && (
@@ -427,6 +470,8 @@ const enviarAprobacion = async () => {
                             Entregar Seguro
                         </h2>
 
+                        {/* CORREO */}
+
                         <label>
                             Correo
                         </label>
@@ -438,6 +483,8 @@ const enviarAprobacion = async () => {
                             }
                             disabled
                         />
+
+                        {/* FECHA */}
 
                         <label>
                             Fecha de envío
@@ -452,19 +499,7 @@ const enviarAprobacion = async () => {
                             disabled
                         />
 
-                        <label>
-                            Adjuntar PDF
-                        </label>
-
-                        <input
-                            type="file"
-                            accept=".pdf"
-                            onChange={(e) =>
-                                setArchivo(
-                                    e.target.files[0]
-                                )
-                            }
-                        />
+                        {/* OBSERVACION */}
 
                         <label>
                             Observación
@@ -479,6 +514,53 @@ const enviarAprobacion = async () => {
                             }
                         />
 
+                        {/* GENERAR PDF */}
+
+                        <button
+                            className="btn-enviar"
+                            onClick={generarPDF}
+                            disabled={cargando}
+                        >
+
+                            {
+                                cargando
+                                    ? "Generando..."
+                                    : "Generar PDF"
+                            }
+
+                        </button>
+
+                        {/* VER PDF */}
+
+                        {
+                            rutaSeguro && (
+
+                                <div
+                                    style={{
+                                        marginTop: "20px"
+                                    }}
+                                >
+
+                                    <a
+                                        href={`http://127.0.0.1:8000/${rutaSeguro}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="btn-enviar"
+                                        style={{
+                                            textDecoration: "none",
+                                            display: "inline-block"
+                                        }}
+                                    >
+                                        Ver PDF generado
+                                    </a>
+
+                                </div>
+
+                            )
+                        }
+
+                        {/* BOTONES */}
+
                         <div className="modal-buttons">
 
                             <button
@@ -488,13 +570,25 @@ const enviarAprobacion = async () => {
                                 Cancelar
                             </button>
 
-                              <button
-                                className="btn-enviar"
-                                onClick={enviarAprobacion}
-                                disabled={cargando}  // 👈 Deshabilitar mientras carga
-                            >
-                                {cargando ? "Enviando..." : "Enviar"}
-                            </button>   
+                            {
+                                rutaSeguro && (
+
+                                    <button
+                                        className="btn-enviar"
+                                        onClick={aprobarSeguro}
+                                        disabled={cargando}
+                                    >
+
+                                        {
+                                            cargando
+                                                ? "Enviando..."
+                                                : "Enviar Seguro"
+                                        }
+
+                                    </button>
+
+                                )
+                            }
 
                         </div>
 

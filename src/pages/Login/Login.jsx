@@ -15,9 +15,9 @@ import { useAuthStore } from "../../store/authStore"
 
 function Login() {
 
-  // =========================
+  
   // STATES
-  // =========================
+  
   const [tabActiva, setTabActiva] = useState("alumno")
 
   const [numControl, setNumControl] = useState("")
@@ -26,14 +26,14 @@ function Login() {
 
   const [error, setError] = useState("")
 
-  // =========================
+  
   // NAVIGATE
-  // =========================
+  
   const navigate = useNavigate()
 
-  // =========================
+  
   // ZUSTAND
-  // =========================
+  
   const login = useAuthStore(
     (state) => state.login
   )
@@ -42,9 +42,8 @@ function Login() {
     (state) => state.usuario
   )
 
-  // =========================
-  // REDIRECCIÓN SI YA LOGEÓ
-  // =========================
+  
+    
   useEffect(() => {
 
     if (!usuario) return
@@ -75,9 +74,9 @@ function Login() {
 
   }, [usuario, navigate])
 
-  // =========================
+  
   // LOGIN
-  // =========================
+  
   const handleLogin = async (e) => {
 
     e.preventDefault()
@@ -92,7 +91,7 @@ function Login() {
       return
     }
 
-    // LIMPIAR ERROR
+     
     setError("")
 
     // PETICIÓN LOGIN
@@ -106,9 +105,9 @@ function Login() {
       result
     )
 
-    // =========================
+    
     // ERROR LOGIN
-    // =========================
+    
     if (!result.success) {
 
       setError(
@@ -119,9 +118,9 @@ function Login() {
       return
     }
 
-    // =========================
+    
     // DATA BACKEND
-    // =========================
+    
     const data = result.data
 
     console.log(
@@ -139,14 +138,14 @@ function Login() {
       return
     }
 
-    // =========================
+    
     // GUARDAR EN STORE
-    // =========================
+    
     login(data)
 
-    // =========================
+    
     // REDIRECCIÓN
-    // =========================
+    
 
     // ALUMNO
     if (
