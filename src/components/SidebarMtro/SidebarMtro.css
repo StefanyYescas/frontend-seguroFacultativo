@@ -1,0 +1,188 @@
+
+
+.admin {
+
+    width: 250px;
+
+    min-height: 100vh;
+
+    background: #004E7F;
+    ;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    padding: 1rem 0.8rem;
+
+    box-shadow:
+        2px 0 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.admin__header {
+
+    width: 100%;
+
+    text-align: center;
+
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+}
+
+
+
+.admin__logo {
+
+    width: 90px;
+
+    object-fit: contain;
+
+    margin-bottom: 0.8rem;
+
+}
+
+
+
+.admin__title {
+
+    color: #F3EA00;
+
+     font-family: 'Times New Roman', Times, serif;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    margin-bottom: 0.7rem;
+
+}
+
+.admin__subtitle {
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 0.72rem;
+
+    line-height: 1.5;
+
+    font-weight: 500;
+
+}
+
+
+.admin__menu {
+
+    width: 100%;
+
+    margin-top: 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.7rem;
+
+}
+
+
+
+
+.admin__menu button {
+
+    width: 100%;
+
+    border: none;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    padding: 0.85rem;
+
+    border-radius: 4px;
+
+    font-size: 0.78rem;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+
+.admin__menu button:hover {
+
+    background: white;
+
+    color: #0f3d73;
+
+}
+
+
+
+.admin__logout {
+
+    width: 100%;
+
+    margin-top: auto;
+
+    border: none;
+
+    background: #01426b;
+
+    color: white;
+
+    padding: 0.8rem;
+
+    border-radius: 3px;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+
+.admin__logout:hover {
+
+    background: #023d78;
+
+}
+
+
+
+.app-layout {
+
+    display: flex;
+
+    min-height: 100vh;
+
+}
+
+
+
+.dashboard {
+
+    flex: 1;
+
+}

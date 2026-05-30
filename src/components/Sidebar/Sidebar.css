@@ -22,7 +22,7 @@
 }
 
 .sidebar__item--activo {
-    background: #163d70; /* slightly darker blue */
+    background: #163d70; 
 }
 
 .sidebar__item:hover {

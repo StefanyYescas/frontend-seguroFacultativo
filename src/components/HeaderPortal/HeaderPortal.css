@@ -8,13 +8,13 @@
     min-height: 80px;
 }
 
-/* ── Logo SEP con recuadro blanco ── */
+
 .headerportal__logos {
     display: flex;
     align-items: center;
     background: white;
     padding: 4px;
-    margin-left: 2%; /* align slightly inwards */
+    margin-left: 2%; 
     flex-shrink: 0;
 }
 
@@ -23,7 +23,7 @@
     object-fit: contain;
 }
 
-/* ── Títulos centrados absolutamente en el header ── */
+
 .headerportal__titulos {
     position: absolute;
     left: 0;

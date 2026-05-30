@@ -1,4 +1,4 @@
-/* ===== ESTRUCTURA GENERAL ===== */
+
 * {
     box-sizing: border-box;
 }
@@ -8,20 +8,19 @@
     flex-direction: column;
     min-height: 100vh;
     background: #f0f0f0;
-    overflow-x: hidden; /* Prevent horizontal scroll / black space */
+    overflow-x: hidden; 
 }
 
-/* ===== CUERPO: main ===== */
+
 .portal__cuerpo {
     display: flex;
     flex: 1;
-    width: 96%; /* match navbar width */
+    width: 96%; 
     max-width: 1400px;
     margin: 0 auto;
     padding-top: 10px;
 }
 
-/* ===== ÁREA PRINCIPAL ===== */
 .portal__main {
     flex: 1;
     display: flex;
@@ -31,7 +30,6 @@
     background: #f0f0f0;
 }
 
-/* ===== BIENVENIDA ===== */
 .portal__bienvenida {
     text-align: center;
     margin-bottom: 30px;
@@ -49,7 +47,7 @@
     text-transform: uppercase;
 }
 
-/* ===== LOGO ITV CENTRADO ===== */
+
 .portal__logo-wrapper {
     display: flex;
     justify-content: center;
@@ -62,7 +60,7 @@
     object-fit: contain;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
     .portal__cuerpo {
         width: 100%;
