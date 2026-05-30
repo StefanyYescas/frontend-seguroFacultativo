@@ -1,9 +1,9 @@
 import api from "../utils/api"
 
 
-// =========================
+
 // OBTENER
-// =========================
+
 
 export const obtenerSolicitudes = async () => {
 
@@ -33,9 +33,9 @@ export const obtenerSolicitudes = async () => {
 
 
 
-// =========================
+
 // ACTUALIZAR
-// =========================
+
 
 export const actualizarSolicitud = async (
 
@@ -74,10 +74,10 @@ export const actualizarSolicitud = async (
 
 
 
-// =========================
+
 // PREVIEW PDF
 // SOLO GENERA PDF
-// =========================
+
 
 export const previewSeguro = async (
 
@@ -132,10 +132,9 @@ export const previewSeguro = async (
 
 
 
-// =========================
 // ENTREGAR SEGURO
 // ENVIA CORREO Y APRUEBA
-// =========================
+
 
 export const entregarSeguro = async (
 
@@ -195,9 +194,8 @@ export const entregarSeguro = async (
 
 
 
-// =========================
 // APROBADAS
-// =========================
+
 
 export const obtenerAprobadas = async () => {
 
@@ -227,9 +225,9 @@ export const obtenerAprobadas = async () => {
 
 
 
-// =========================
+
 // RECHAZADAS
-// =========================
+
 
 export const obtenerRechazadas = async () => {
 
@@ -259,9 +257,9 @@ export const obtenerRechazadas = async () => {
 
 
 
-// =========================
+
 // HISTORIAL
-// =========================
+
 
 export const obtenerHistorial = async () => {
 
