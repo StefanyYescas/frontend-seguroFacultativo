@@ -9,14 +9,31 @@ import logo from "../../assets/sep.png"
 
 import "./Login.css"
 
-import { loginUser } from "../../hooks/useAuth"
+import { paso1Login, paso2Verificar, paso3Confirmar, reenviarCodigo } from "../../hooks/useAuth"
 
 import { useAuthStore } from "../../store/authStore"
+
+function enmascararCorreo(correo) {
+
+  const [nombre, dominio] = correo.split("@")
+
+  if (nombre.length <= 2) {
+
+    return `${nombre[0]}***@${dominio}`
+  }
+
+  return `${nombre[0]}${nombre[1]}***@${dominio}`
+}
 
 function Login() {
 
   
-  // STATES
+  // ESTADO DEL PASO
+  
+  const [paso, setPaso] = useState(1)
+
+  
+  // PASO 1 — CREDENCIALES
   
   const [tabActiva, setTabActiva] = useState("alumno")
 
@@ -24,6 +41,37 @@ function Login() {
 
   const [nip, setNip] = useState("")
 
+  const [cargandoPaso1, setCargandoPaso1] = useState(false)
+
+  
+  // PASO 2 — CÓDIGO OTP
+  
+  const [tempToken, setTempToken] = useState("")
+
+  const [correoDestino, setCorreoDestino] = useState("")
+
+  const [codigo, setCodigo] = useState("")
+
+  const [cargandoPaso2, setCargandoPaso2] = useState(false)
+
+  const [tiempoReenvio, setTiempoReenvio] = useState(0)
+
+  const [reenviando, setReenviando] = useState(false)
+
+  
+  // PASO 3 — CONFIRMAR
+  
+  const [nombreUsuario, setNombreUsuario] = useState("")
+
+  const [numControlConfirmar, setNumControlConfirmar] = useState("")
+
+  const [rolConfirmar, setRolConfirmar] = useState("")
+
+  const [cargandoPaso3, setCargandoPaso3] = useState(false)
+
+  
+  // ERROR
+  
   const [error, setError] = useState("")
 
   
@@ -43,12 +91,12 @@ function Login() {
   )
 
   
-    
+  // REDIRECCIÓN SI YA HAY SESIÓN
+  
   useEffect(() => {
 
     if (!usuario) return
 
-    // ALUMNO
     if (
       usuario.rol?.toLowerCase() === "alumno"
     ) {
@@ -60,7 +108,6 @@ function Login() {
 
     }
 
-    // ADMIN
     else if (
       usuario.rol?.toLowerCase() === "admin"
     ) {
@@ -75,13 +122,14 @@ function Login() {
   }, [usuario, navigate])
 
   
-  // LOGIN
+  // =========================
+  // PASO 1 — CREDENCIALES
+  // =========================
   
-  const handleLogin = async (e) => {
+  const handlePaso1 = async (e) => {
 
     e.preventDefault()
 
-    // VALIDACIÓN
     if (!numControl || !nip) {
 
       setError(
@@ -91,23 +139,17 @@ function Login() {
       return
     }
 
-     
     setError("")
 
-    // PETICIÓN LOGIN
-    const result = await loginUser(
+    setCargandoPaso1(true)
+
+    const result = await paso1Login(
       numControl,
       nip
     )
 
-    console.log(
-      "RESULTADO LOGIN:",
-      result
-    )
+    setCargandoPaso1(false)
 
-    
-    // ERROR LOGIN
-    
     if (!result.success) {
 
       setError(
@@ -118,36 +160,154 @@ function Login() {
       return
     }
 
-    
-    // DATA BACKEND
-    
     const data = result.data
 
-    console.log(
-      "DATA LOGIN:",
-      data
+    setTempToken(data.tempToken)
+
+    setCorreoDestino(
+      enmascararCorreo(data.correo)
     )
 
-    // VALIDAR ROL
-    if (!data.rol) {
+    setPaso(2)
+
+    setTiempoReenvio(30)
+  }
+
+  
+  // CONTADOR REENVIAR
+  
+  useEffect(() => {
+
+    if (tiempoReenvio <= 0) return
+
+    const timer = setTimeout(() => {
+
+      setTiempoReenvio(
+        tiempoReenvio - 1
+      )
+
+    }, 1000)
+
+    return () => clearTimeout(timer)
+
+  }, [tiempoReenvio])
+
+  
+  // REENVIAR CÓDIGO
+  
+  const handleReenviar = async () => {
+
+    if (
+      tiempoReenvio > 0 || reenviando
+    ) return
+
+    setError("")
+
+    setReenviando(true)
+
+    const result = await reenviarCodigo(
+      tempToken
+    )
+
+    setReenviando(false)
+
+    if (!result.success) {
 
       setError(
-        "El usuario no tiene rol."
+        result.error ||
+        "Error al reenviar"
       )
 
       return
     }
 
-    
-    // GUARDAR EN STORE
-    
+    setTiempoReenvio(30)
+  }
+
+  
+  // =========================
+  // PASO 2 — CÓDIGO OTP
+  // =========================
+  
+  const handlePaso2 = async (e) => {
+
+    e.preventDefault()
+
+    if (!codigo) {
+
+      setError(
+        "Ingresa el código de verificación."
+      )
+
+      return
+    }
+
+    setError("")
+
+    setCargandoPaso2(true)
+
+    const result = await paso2Verificar(
+      tempToken,
+      codigo
+    )
+
+    setCargandoPaso2(false)
+
+    if (!result.success) {
+
+      setError(
+        result.error ||
+        "Código inválido"
+      )
+
+      return
+    }
+
+    const data = result.data
+
+    setNombreUsuario(data.usuario)
+
+    setNumControlConfirmar(data.numControl)
+
+    setRolConfirmar(data.rol)
+
+    setTempToken(data.tempToken)
+
+    setPaso(3)
+  }
+
+  
+  // =========================
+  // PASO 3 — CONFIRMAR
+  // =========================
+  
+  const handlePaso3 = async () => {
+
+    setError("")
+
+    setCargandoPaso3(true)
+
+    const result = await paso3Confirmar(
+      tempToken,
+      rolConfirmar
+    )
+
+    setCargandoPaso3(false)
+
+    if (!result.success) {
+
+      setError(
+        result.error ||
+        "Error al confirmar"
+      )
+
+      return
+    }
+
+    const data = result.data
+
     login(data)
 
-    
-    // REDIRECCIÓN
-    
-
-    // ALUMNO
     if (
       data.rol.toLowerCase() === "alumno"
     ) {
@@ -159,7 +319,6 @@ function Login() {
 
     }
 
-    // ADMIN
     else if (
       data.rol.toLowerCase() === "admin"
     ) {
@@ -171,15 +330,16 @@ function Login() {
 
     }
 
-    // ROL INVÁLIDO
-    else {
+  }
 
-      setError(
-        `Rol inválido: ${data.rol}`
-      )
+  
+  // VOLVER AL PASO ANTERIOR
+  
+  const volverPaso1 = () => {
 
-    }
+    setError("")
 
+    setPaso(1)
   }
 
   return (
@@ -209,104 +369,303 @@ function Login() {
         {/* CARD */}
         <div className="login__card">
 
-          {/* TABS */}
-          <div className="login__tabs">
 
-            {/* ALUMNO */}
-            <button
-              type="button"
-              className={`login__tab ${
-                tabActiva === "alumno"
-                  ? "login__tab--activa"
-                  : ""
-              }`}
-              onClick={() =>
-                setTabActiva("alumno")
-              }
-            >
-              Alumnos
-            </button>
+          {/* ========================= */}
+          {/* PASO 1 — CREDENCIALES */}
+          {/* ========================= */}
 
-            {/* PERSONAL */}
-            <button
-              type="button"
-              className={`login__tab ${
-                tabActiva === "personal"
-                  ? "login__tab--activa"
-                  : ""
-              }`}
-              onClick={() =>
-                setTabActiva("personal")
-              }
-            >
-              Personal
-            </button>
+          {paso === 1 && (
 
-          </div>
+            <>
 
-          {/* TEXTO */}
-          <p className="login__acceso">
+              {/* TABS */}
+              <div className="login__tabs">
 
-            {tabActiva === "alumno"
+                <button
+                  type="button"
+                  className={`login__tab ${
+                    tabActiva === "alumno"
+                      ? "login__tab--activa"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setTabActiva("alumno")
+                  }
+                >
+                  Alumnos
+                </button>
 
-              ? "Acceso a Alumnos"
+                <button
+                  type="button"
+                  className={`login__tab ${
+                    tabActiva === "personal"
+                      ? "login__tab--activa"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setTabActiva("personal")
+                  }
+                >
+                  Personal
+                </button>
 
-              : "Acceso a Personal"
+              </div>
 
-            }
+              <p className="login__acceso">
 
-          </p>
+                {tabActiva === "alumno"
 
-          {/* FORM */}
-          <form
-            className="login__form"
-            onSubmit={handleLogin}
-          >
+                  ? "Acceso a Alumnos"
 
-            {/* NUM CONTROL */}
-            <input
-              type="text"
-              className="login__input"
-              placeholder="No. de Control"
-              value={numControl}
-              onChange={(e) =>
-                setNumControl(
-                  e.target.value
-                )
-              }
-            />
+                  : "Acceso a Personal"
+                }
 
-            {/* PASSWORD */}
-            <input
-              type="password"
-              className="login__input"
-              placeholder="NIP"
-              value={nip}
-              onChange={(e) =>
-                setNip(
-                  e.target.value
-                )
-              }
-            />
-
-            {/* ERROR */}
-            {error && (
-
-              <p className="login__error">
-                {error}
               </p>
 
-            )}
+              <form
+                className="login__form"
+                onSubmit={handlePaso1}
+              >
 
-            {/* BOTÓN */}
-            <button
-              type="submit"
-              className="login__boton"
-            >
-              Ingresar
-            </button>
+                <input
+                  type="text"
+                  className="login__input"
+                  placeholder="No. de Control"
+                  value={numControl}
+                  onChange={(e) =>
+                    setNumControl(
+                      e.target.value
+                    )
+                  }
+                />
 
-          </form>
+                <input
+                  type="password"
+                  className="login__input"
+                  placeholder="NIP"
+                  value={nip}
+                  onChange={(e) =>
+                    setNip(
+                      e.target.value
+                    )
+                  }
+                />
+
+                {error && (
+
+                  <p className="login__error">
+                    {error}
+                  </p>
+
+                )}
+
+                <button
+                  type="submit"
+                  className="login__boton"
+                  disabled={cargandoPaso1}
+                >
+                  {cargandoPaso1
+                    ? "Enviando..."
+                    : "Enviar código"
+                  }
+                </button>
+
+              </form>
+
+            </>
+
+          )}
+
+
+          {/* ========================= */}
+          {/* PASO 2 — CÓDIGO OTP */}
+          {/* ========================= */}
+
+          {paso === 2 && (
+
+            <>
+
+              <div className="login__paso-header">
+
+                <p className="login__paso-titulo">
+                  Verificación en dos pasos
+                </p>
+
+                <p className="login__paso-sub">
+                  Hemos enviado un código a:
+                </p>
+
+                <p className="login__paso-correo">
+                  {correoDestino}
+                </p>
+
+              </div>
+
+              <form
+                className="login__form"
+                onSubmit={handlePaso2}
+              >
+
+                <input
+                  type="text"
+                  className="login__input login__input--codigo"
+                  placeholder="Código de verificación"
+                  maxLength={6}
+                  value={codigo}
+                  onChange={(e) =>
+                    setCodigo(
+                      e.target.value.replace(
+                        /\D/g,
+                        ""
+                      )
+                    )
+                  }
+                />
+
+                {error && (
+
+                  <p className="login__error">
+                    {error}
+                  </p>
+
+                )}
+
+                <button
+                  type="submit"
+                  className="login__boton"
+                  disabled={cargandoPaso2}
+                >
+                  {cargandoPaso2
+                    ? "Verificando..."
+                    : "Verificar"
+                  }
+                </button>
+
+              </form>
+
+              {tiempoReenvio > 0 ? (
+
+                <p className="login__reenviar-timer">
+                  Reenviar código en {tiempoReenvio}s
+                </p>
+
+              ) : (
+
+                <button
+                  type="button"
+                  className="login__reenviar"
+                  onClick={handleReenviar}
+                  disabled={reenviando}
+                >
+                  {reenviando
+                    ? "Enviando..."
+                    : "Reenviar código"
+                  }
+                </button>
+
+              )}
+
+              <button
+                type="button"
+                className="login__link"
+                onClick={volverPaso1}
+              >
+                ← Volver
+              </button>
+
+            </>
+
+          )}
+
+
+          {/* ========================= */}
+          {/* PASO 3 — CONFIRMAR */}
+          {/* ========================= */}
+
+          {paso === 3 && (
+
+            <>
+
+              <div className="login__paso-header">
+
+                <p className="login__paso-titulo">
+                  Confirmar inicio de sesión
+                </p>
+
+              </div>
+
+              <div className="login__resumen">
+
+                <div className="login__resumen-item">
+                  <span className="login__resumen-label">
+                    Nombre
+                  </span>
+                  <span className="login__resumen-valor">
+                    {nombreUsuario}
+                  </span>
+                </div>
+
+                <div className="login__resumen-item">
+                  <span className="login__resumen-label">
+                    No. Control
+                  </span>
+                  <span className="login__resumen-valor">
+                    {numControlConfirmar}
+                  </span>
+                </div>
+
+                <div className="login__resumen-item">
+                  <span className="login__resumen-label">
+                    Rol
+                  </span>
+                  <span className="login__resumen-valor">
+                    {rolConfirmar === "alumno"
+                      ? "Alumno"
+                      : "Administrador"
+                    }
+                  </span>
+                </div>
+
+              </div>
+
+              <form
+                className="login__form"
+                onSubmit={(e) => { e.preventDefault(); handlePaso3() }}
+              >
+
+              {error && (
+
+                <p className="login__error">
+                  {error}
+                </p>
+
+              )}
+
+              <button
+                type="submit"
+                className="login__boton"
+                disabled={cargandoPaso3}
+              >
+                {cargandoPaso3
+                  ? "Ingresando..."
+                  : "Confirmar e Ingresar"
+                }
+              </button>
+
+              </form>
+
+              <button
+                type="button"
+                className="login__link"
+                onClick={volverPaso1}
+              >
+                ← Cancelar
+              </button>
+
+            </>
+
+          )}
+
 
         </div>
 

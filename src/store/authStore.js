@@ -1,8 +1,17 @@
 import { create } from "zustand"
 
+function getStoredUsuario() {
+    try {
+        const raw = localStorage.getItem("usuario")
+        return raw ? JSON.parse(raw) : null
+    } catch {
+        return null
+    }
+}
+
 export const useAuthStore = create((set) => ({
 
-    usuario: null,
+    usuario: getStoredUsuario(),
 
     token: localStorage.getItem("token") || null,
 
@@ -13,6 +22,11 @@ export const useAuthStore = create((set) => ({
         localStorage.setItem(
             "token",
             data.token
+        )
+
+        localStorage.setItem(
+            "usuario",
+            JSON.stringify(data)
         )
 
         set({
@@ -29,6 +43,8 @@ export const useAuthStore = create((set) => ({
     logout: () => {
 
         localStorage.removeItem("token")
+
+        localStorage.removeItem("usuario")
 
         set({
 

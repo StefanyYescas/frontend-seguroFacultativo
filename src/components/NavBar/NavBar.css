@@ -1,109 +1,133 @@
 .navbar-wrapper {
-    width: 100%;
-    background-color: #004E7F;
-    padding-bottom: 8px;
-    display: flex;
-    justify-content: center;
-
-    overflow: visible; /* 🔥 clave */
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .navbar {
-    width: 96%;
-    max-width: 1400px;
-    background: #e0e0e0;
-    display: flex;
-    align-items: stretch;
-    min-height: 32px;
-    border-radius: 2px;
-    border: 1px solid #c0c0c0;
-
-    position: relative;
-    overflow: visible; /* 🔥 clave */
+  width: 96%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  position: relative;
+  overflow: visible;
 }
 
-/* 🔥 TODOS LOS ITEMS IGUALES */
 .navbar__item-container {
-    flex: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-
-    border-right: 1px solid #c0c0c0;
-    overflow: visible; /* 🔥 clave */
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: visible;
 }
 
-.navbar__item-container:last-child {
-    border-right: none;
-}
-
-/* BOTÓN */
 .navbar__item {
-    width: 100%;
-    padding: 6px 10px;
-    background: transparent;
-    color: #1a1a1a;
-    font-size: 0.72rem;
-    font-family: Arial, sans-serif;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    white-space: nowrap;
-    transition: 0.15s;
+  padding: 14px 20px;
+  background: transparent;
+  color: #5f6368;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.navbar__item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: #1a73e8;
+  border-radius: 3px 3px 0 0;
+  transform: scaleX(0);
+  transition: transform 0.2s;
 }
 
 .navbar__item--activo {
-    color: #0066cc;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.navbar__item--activo::after {
+  transform: scaleX(1);
 }
 
 .navbar__item:hover {
-    color: #0066cc;
-    background: #f0f0f0;
+  color: #1a73e8;
+  background: #f8f9fa;
 }
 
-/* ===== DROPDOWN (FIX REAL) ===== */
 .navbar__dropdown {
-    position: absolute;
-
-    /* 🔥 ya no se “pega” al borde */
-    top: calc(100% + 4px);
-    left: 0;
-
-    width: 280px;
-
-    background-color: #0d4a82;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    z-index: 9999;
-
-    box-shadow: 0px 8px 18px rgba(0,0,0,0.25);
-    border-radius: 3px;
-
-    overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: #ffffff;
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 6px 0;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: 1px solid #e8eaed;
+  overflow: hidden;
+  animation: dropdownIn 0.15s ease;
 }
 
-/* ITEMS DEL DROPDOWN */
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .navbar__dropdown-item {
-    padding: 8px 12px;
-    color: #ffffff;
-    font-size: 0.8rem;
-    border-bottom: 1px solid #285d8e;
-    cursor: pointer;
-}
-
-.navbar__dropdown-item:last-child {
-    border-bottom: none;
+  padding: 10px 18px;
+  color: #202124;
+  font-size: 0.85rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
 .navbar__dropdown-item:hover {
-    background-color: #1a60a1;
+  background: #f0f6ff;
+  color: #1a73e8;
 }
 
-.navbar__dropdown-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.navbar__spacer {
+  flex: 1;
+}
+
+.navbar__cerrar {
+  margin-left: auto;
+  padding: 8px 18px;
+  background: transparent;
+  color: #c5221f;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  border: 1.5px solid #c5221f;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.navbar__cerrar:hover {
+  background: #c5221f;
+  color: #ffffff;
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "../pages/Login/Login"
 import PortalAlumno from "../pages/PortalAlumno/PortalAlumno"
 import PortalMaestro from "../pages/PortalMaestro/PortalMaestro"
@@ -12,6 +12,11 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+
+        <Route
+          path="/"
+          element={<Navigate to="/login" replace />}
+        />
 
         <Route
          path="/login" 
@@ -58,6 +63,11 @@ function AppRouter() {
 
 
 
+
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace />}
+        />
 
       </Routes>
     </BrowserRouter>

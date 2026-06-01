@@ -14,16 +14,7 @@ function PortalAlumno() {
     // 🟢 ESTO VIENE DE ZUSTAND
     const alumno = useAuthStore((state) => state.usuario)
 
-    const logout = useAuthStore((state) => state.logout)
-
-    const handleCerrarSesion = (opcion) => {
-
-        if (opcion === "CERRAR SESIÓN") {
-            logout() //  limpia sesión global
-            window.location.href = "/login"
-            return
-        }
-
+    const handleNavClick = (opcion) => {
         setNavActiva(opcion)
     }
 
@@ -67,7 +58,7 @@ function PortalAlumno() {
 
             <NavBar
                 opcionActiva={navActiva}
-                onOpcionClick={handleCerrarSesion}
+                onOpcionClick={handleNavClick}
             />
 
             <div className="portal__cuerpo">

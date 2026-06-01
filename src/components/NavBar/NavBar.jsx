@@ -4,94 +4,100 @@ import { useAuthStore } from "../../store/authStore"
 import "./NavBar.css"
 
 const opciones = [
-    "INFORMACIÓN ESCOLAR",
-    "INSCRIPCIONES",
-    "EVALUACIÓN DOCENTE",
-    "MANUAL DE INSCRIPCIONES",
-    "CERRAR SESIÓN",
+  "INFORMACIÓN ESCOLAR",
+  "INSCRIPCIONES",
+  "EVALUACIÓN DOCENTE",
+  "MANUAL DE INSCRIPCIONES",
 ]
 
 const submenuInformacionEscolar = [
-    "Tramite Seguro Facultativo"
+  "Tramite Seguro Facultativo"
 ]
 
 function NavBar({ opcionActiva, onOpcionClick }) {
 
-    const [menuAbierto, setMenuAbierto] = useState(false)
+  const [menuAbierto, setMenuAbierto] = useState(false)
 
-    const navigate = useNavigate()
-    const logout = useAuthStore((state) => state.logout)
+  const navigate = useNavigate()
+  const logout = useAuthStore((state) => state.logout)
 
-    const handleClick = (opcion) => {
+  const handleClick = (opcion) => {
 
-        if (opcion === "CERRAR SESIÓN") {
-            logout()
-            localStorage.removeItem("usuario")
-            navigate("/login", { replace: true })
-            return
-        }
-
-        if (opcion === "INFORMACIÓN ESCOLAR") {
-            setMenuAbierto(!menuAbierto)
-            return
-        }
-
-        onOpcionClick(opcion)
-        setMenuAbierto(false)
+    if (opcion === "INFORMACIÓN ESCOLAR") {
+      setMenuAbierto(!menuAbierto)
+      return
     }
 
-    return (
-        <div className="navbar-wrapper">
+    onOpcionClick(opcion)
+    setMenuAbierto(false)
+  }
 
-            <nav className="navbar">
+  const handleCerrarSesion = () => {
+    logout()
+    localStorage.removeItem("usuario")
+    navigate("/login", { replace: true })
+  }
 
-                {opciones.map((opcion) => (
+  return (
+    <div className="navbar-wrapper">
 
-                    <div key={opcion} className="navbar__item-container">
+      <nav className="navbar">
 
-                        <button
-                            className={`navbar__item ${
-                                opcionActiva === opcion
-                                    ? "navbar__item--activo"
-                                    : ""
-                            }`}
-                            onClick={() => handleClick(opcion)}
-                        >
-                            {opcion}
-                        </button>
+        {opciones.map((opcion) => (
 
-                        {/* SUBMENU FIJO */}
-                        {opcion === "INFORMACIÓN ESCOLAR" && menuAbierto && (
+          <div key={opcion} className="navbar__item-container">
 
-                            <ul className="navbar__dropdown">
+            <button
+              className={`navbar__item ${
+                opcionActiva === opcion
+                  ? "navbar__item--activo"
+                  : ""
+              }`}
+              onClick={() => handleClick(opcion)}
+            >
+              {opcion}
+            </button>
 
-                                {submenuInformacionEscolar.map((sub) => (
+            {opcion === "INFORMACIÓN ESCOLAR" && menuAbierto && (
 
-                                    <li
-                                        key={sub}
-                                        className="navbar__dropdown-item"
-                                        onClick={() => {
-                                            onOpcionClick(sub)
-                                            setMenuAbierto(false)
-                                        }}
-                                    >
-                                        {sub}
-                                    </li>
+              <ul className="navbar__dropdown">
 
-                                ))}
+                {submenuInformacionEscolar.map((sub) => (
 
-                            </ul>
-
-                        )}
-
-                    </div>
+                  <li
+                    key={sub}
+                    className="navbar__dropdown-item"
+                    onClick={() => {
+                      onOpcionClick(sub)
+                      setMenuAbierto(false)
+                    }}
+                  >
+                    {sub}
+                  </li>
 
                 ))}
 
-            </nav>
+              </ul>
 
-        </div>
-    )
+            )}
+
+          </div>
+
+        ))}
+
+        <div className="navbar__spacer" />
+
+        <button
+          className="navbar__cerrar"
+          onClick={handleCerrarSesion}
+        >
+          Cerrar Sesión
+        </button>
+
+      </nav>
+
+    </div>
+  )
 }
 
 export default NavBar

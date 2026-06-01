@@ -2,262 +2,382 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-/* ===== HEADER ===== */
-.login__header {
-  background: #005487;
-  height: 72px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login__titulo {
-  color: #ffee00;
-  font-size: 3rem;
-  font-weight: bold;
-  font-family: Georgia, serif;
-  line-height: 1;
+  background: #f0f2f5;
 }
 
 /* ===== HERO ===== */
 .login__hero {
   position: relative;
-
   flex-grow: 1;
-  min-height: calc(100vh - 192px);
-
+  min-height: calc(100vh - 160px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-
-  padding: 40px 60px;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-/* ===== TODO EL CONTENIDO ENCIMA DEL BLUR ===== */
-.login__hero>* {
+.login__hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.login__hero > * {
   position: relative;
   z-index: 1;
 }
 
-/* ===== LOGO ITV ===== */
+/* ===== LOGO ===== */
 .login__logo-wrapper {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-45%, -50%);
+  display: none;
 }
 
-.login__logo {
-  width: 220px;
-  height: 220px;
-  object-fit: contain;
+@media (min-width: 1024px) {
+  .login__hero {
+    justify-content: space-evenly;
+  }
 
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+  .login__logo-wrapper {
+    display: block;
+  }
+
+  .login__logo {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
+  }
 }
 
 /* ===== CARD ===== */
 .login__card {
-  width: 300px;
-
-  background: rgba(255, 255, 255, 0.92);
-
-  border: 1px solid #c9c9c9;
-  border-radius: 3px;
-
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
   overflow: hidden;
+  padding-bottom: 32px;
+  animation: loginFadeIn 0.3s ease;
+}
 
-  padding-bottom: 28px;
-
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.28);
+@keyframes loginFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== TABS ===== */
 .login__tabs {
   display: flex;
+  border-bottom: 1px solid #e8eaed;
 }
 
 .login__tab {
   flex: 1;
-
-  padding: 14px 0;
-
+  padding: 16px 0;
   border: none;
-
-  background: #00853f;
-  color: white;
-
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: 'Times New Roman', Times, serif;
-
+  background: transparent;
+  color: #5f6368;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
 
-  transition: background 0.2s;
+.login__tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: #1a73e8;
+  border-radius: 3px 3px 0 0;
+  transform: scaleX(0);
+  transition: transform 0.2s;
 }
 
 .login__tab--activa {
-  background: #006a34;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.login__tab--activa::after {
+  transform: scaleX(1);
 }
 
 .login__tab:hover {
-  background: #00753a;
+  background: #f8f9fa;
 }
 
-/* ===== TEXTO ACCESO ===== */
+/* ===== ACCESO TITLE ===== */
 .login__acceso {
-  padding: 22px 20px 16px 20px;
-
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: 'Times New Roman', Times, serif;
-
-  color: #0f2147;
-
-  text-align: left;
+  padding: 24px 24px 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #202124;
+  text-align: center;
 }
 
 /* ===== FORM ===== */
 .login__form {
   display: flex;
   flex-direction: column;
-
-  gap: 14px;
-
-  padding: 0 20px;
+  gap: 16px;
+  padding: 16px 24px 0;
 }
 
 /* ===== INPUTS ===== */
 .login__input {
-  padding: 14px;
-
-  border: 1px solid #bcbcbc;
-  border-radius: 2px;
-
-  font-size: 1rem;
-  color: #1a1a1a;
-
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1.5px solid #dadce0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #202124;
   outline: none;
+  background: #f8f9fa;
+  transition: all 0.2s;
+}
 
-  background: white;
-
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+.login__input::placeholder {
+  color: #9aa0a6;
 }
 
 .login__input:focus {
-  border-color: #00853f;
+  border-color: #1a73e8;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+}
 
-  box-shadow:
-    0 0 0 2px rgba(0, 133, 63, 0.15);
+/* ===== INPUT CÓDIGO ===== */
+.login__input--codigo {
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 12px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
 }
 
 /* ===== ERROR ===== */
 .login__error {
-  background: #fdecea;
-
-  color: #c0392b;
-
-  border: 1px solid #f5c0bb;
-  border-radius: 4px;
-
-  padding: 10px 12px;
-
+  background: #fce8e6;
+  color: #c5221f;
+  border: 1px solid #f5c6c2;
+  border-radius: 10px;
+  padding: 12px 16px;
   font-size: 0.85rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  animation: loginShake 0.3s ease;
 }
 
-/* ===== BOTÓN ===== */
-.login__boton {
-  margin-top: 6px;
+@keyframes loginShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
 
-  padding: 14px;
+/* ===== PASO HEADER ===== */
+.login__paso-header {
+  padding: 24px 24px 8px;
+  text-align: center;
+}
 
+.login__paso-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #202124;
+  margin-bottom: 8px;
+}
+
+.login__paso-sub {
+  font-size: 0.85rem;
+  color: #5f6368;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin-bottom: 4px;
+}
+
+.login__paso-correo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a73e8;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== RESUMEN PASO 3 ===== */
+.login__resumen {
+  padding: 8px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login__resumen-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e8eaed;
+}
+
+.login__resumen-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.login__resumen-valor {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #202124;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== LINK (volver / cancelar) ===== */
+.login__link {
+  display: block;
+  margin: 16px auto 0;
+  padding: 0;
   border: none;
-  border-radius: 3px;
-
-  background: #1e67b2;
-  color: white;
-
-  font-size: 1rem;
-  font-weight: 700;
-
+  background: none;
+  color: #5f6368;
+  font-size: 0.85rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
 
-  transition:
-    background 0.2s,
-    transform 0.1s;
+.login__link:hover {
+  color: #1a73e8;
+}
+
+/* ===== REENVIAR TIMER ===== */
+.login__reenviar-timer {
+  margin: 16px 24px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #5f6368;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== REENVIAR BOTÓN ===== */
+.login__reenviar {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 16px auto 0;
+  padding: 12px;
+  border: 1.5px solid #1a73e8;
+  border-radius: 10px;
+  background: transparent;
+  color: #1a73e8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login__reenviar:hover {
+  background: #1a73e8;
+  color: #ffffff;
+}
+
+.login__reenviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: transparent;
+  color: #1a73e8;
+}
+
+/* ===== BOTÓN PRINCIPAL ===== */
+.login__boton {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
 }
 
 .login__boton:hover {
-  background: #15579a;
-
   transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(26, 115, 232, 0.4);
 }
 
 .login__boton:active {
   transform: translateY(0);
 }
 
-/* ===== FOOTER ===== */
-.login__footer {
-  height: 120px;
-
-  background: #f3f3f3;
-
-  display: flex;
-  align-items: center;
-
-  gap: 40px;
-
-  padding-left: 30px;
-
-  border-top: 1px solid #cfcfcf;
+.login__boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none;
 }
 
-/* ===== LOGOS FOOTER ===== */
+/* ===== FOOTER ===== */
+.login__footer {
+  height: 80px;
+  background: #ffffff;
+  border-top: 1px solid #e8eaed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
+
 .login__footer-logo {
-  height: 70px;
+  height: 50px;
   object-fit: contain;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .login__hero {
-    justify-content: center;
-    padding: 30px 20px;
-  }
-
-  .login__logo-wrapper {
-    display: none;
+    padding: 20px 16px;
+    align-items: flex-start;
+    padding-top: 40px;
   }
 
   .login__card {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .login__titulo {
-    font-size: 2rem;
-    text-align: center;
-    padding: 0 10px;
+    max-width: 100%;
+    border-radius: 12px;
   }
 
   .login__footer {
-    justify-content: center;
-    padding-left: 0;
+    height: 64px;
   }
 
   .login__footer-logo {
-    height: 55px;
+    height: 40px;
   }
 }

@@ -1,5 +1,5 @@
 .dashboard {
-  flex: 1;            /* 👈 ocupa todo el espacio restante */
+  flex: 1;
   height: 100vh;
   background-color: #d9d9d9;
 
