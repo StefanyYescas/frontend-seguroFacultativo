@@ -48,6 +48,14 @@ function SidebarMtro() {
 
   }
 
+  const irRegistrar = () => {
+
+    navigate(
+      "/maestro/registrar"
+    )
+
+  }
+
   
   const cerrarSesion = () => {
 
@@ -104,6 +112,10 @@ function SidebarMtro() {
 
         <button onClick={irHistorial}>
           Historial
+        </button>
+
+        <button onClick={irRegistrar}>
+          Registrar Alumnos
         </button>
 
       </div>

@@ -1,0 +1,139 @@
+.registrar {
+  flex: 1;
+  min-height: 100vh;
+  background: #eef2f7;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 24px;
+}
+
+.registrar__card {
+  width: 100%;
+  max-width: 640px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 36px;
+}
+
+.registrar__titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #202124;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.registrar__error {
+  background: #fce8e6;
+  color: #c5221f;
+  border: 1px solid #f5c6c2;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin-bottom: 16px;
+}
+
+.registrar__exito {
+  background: #e6f4ea;
+  color: #137333;
+  border: 1px solid #ceead6;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  margin-bottom: 16px;
+}
+
+.registrar__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.registrar__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.registrar__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.registrar__campo:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.registrar__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5f6368;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.registrar__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1.5px solid #dadce0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #202124;
+  outline: none;
+  background: #f8f9fa;
+  transition: all 0.2s;
+}
+
+.registrar__input::placeholder {
+  color: #9aa0a6;
+}
+
+.registrar__input:focus {
+  border-color: #1a73e8;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+}
+
+.registrar__boton {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+}
+
+.registrar__boton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(26, 115, 232, 0.4);
+}
+
+.registrar__boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .registrar__card {
+    padding: 24px 18px;
+  }
+
+  .registrar__grid {
+    grid-template-columns: 1fr;
+  }
+}

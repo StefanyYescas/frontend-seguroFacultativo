@@ -143,9 +143,12 @@ function Login() {
 
     setCargandoPaso1(true)
 
+    const rolEsperado = tabActiva === "alumno" ? "alumno" : "admin"
+
     const result = await paso1Login(
       numControl,
-      nip
+      nip,
+      rolEsperado
     )
 
     setCargandoPaso1(false)

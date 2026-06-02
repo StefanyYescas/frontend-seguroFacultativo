@@ -7,6 +7,7 @@ import ProtectedRoute from "../routes/ProtectedRoutes"
 import SolicitudesAprobadas from "../pages/SolicitudesAprobadas/SolicitudesAprobadas"
 import SolicitudesRechazadas from "../pages/SolicitudesRechazadas/SolicitudesRechazadas"
 import SolicitudHistorial from "../pages/SolicitudesHistorial/SolicitudesHistorial"
+import RegistrarAlumnoPage from "../pages/RegistrarAlumno/RegistrarAlumnoPage"
 
 function AppRouter() {
   return (
@@ -61,7 +62,10 @@ function AppRouter() {
     element={<SolicitudHistorial />}
 />
 
-
+<Route
+    path="/maestro/registrar"
+    element={<RegistrarAlumnoPage />}
+/>
 
 
         <Route

@@ -6,14 +6,15 @@ import api from "../utils/api"
 
 export const paso1Login = async (
   numControl,
-  contrasena
+  contrasena,
+  rol = "alumno"
 ) => {
 
   try {
 
     const response = await api.post(
       "/usuario/paso1",
-      { numControl, contrasena }
+      { numControl, contrasena, rol }
     )
 
     const data = response.data
